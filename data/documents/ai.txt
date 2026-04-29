@@ -1,0 +1,3 @@
+Machine learning allows computers to learn patterns from data.
+Gradient descent is used to train models.
+Transformers are used in NLP.
