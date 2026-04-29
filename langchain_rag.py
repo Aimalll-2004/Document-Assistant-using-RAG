@@ -59,7 +59,16 @@ print(context)
 print("\nAnswer:")
 print(answer)
 
- 
+
+
+
+"""
+Note to self:
+Difference from simple_rag.py?
+- splitting of the docuemnts is now done using CharacterTextSplitter (why? to retrieve relevant section of the document)
+- using Langchain HuggingFaceEmbeddings to create document embeddigns
+- retriever.invoke() for retrieving relevant documents now 
+"""
 
 
 
