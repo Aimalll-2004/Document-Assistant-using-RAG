@@ -1,12 +1,14 @@
-
 venv/
-
-.env
-
 __pycache__/
-*.pyc
-
+.env
+vector_db/
 .vscode/
 
-.DS_Store
-Thumbs.db
+# old demo files 
+agent.py
+langchain_rag.py
+rag.py
+semantic_search.py
+simple_rag.py
+test_graph.py
+test_llm.py
