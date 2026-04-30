@@ -43,12 +43,34 @@ A local AI-powered study assistant that allows students to ask questions about t
 ```bash 
 git clone <your-repository-link>
 cd personal-ai-study-assistant
+```
 
 ### 2. Install the dependencies 
-### 3. Install Ollama and pull model (llama3.1:8b)
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Install Ollama and pull model 
+```
+https://ollama.com/
+
+```
+#### run:
+```bash
+ollama pull llama3.1:8b
+```
+
 ### 4. Add study material inside data/documents (.txt and .pdf files supported)
-### 5. Run "python ingest.py" to build a vector database and store documents
-### 6. Run the API (uvicorn app:app --reload)
+
+### 5. Build a vector database
+```bash
+python ingest.py
+```
+
+### 6. Run the API
+```bash
+uvicorn app:app --reload
+```
 ### 7. Open in browser and test out queries based on the uploaded documents 
 
 
