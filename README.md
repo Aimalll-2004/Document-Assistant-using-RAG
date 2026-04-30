@@ -40,6 +40,10 @@ A local AI-powered study assistant that allows students to ask questions about t
 ## Setup and Run
 
 ### 1. Clone the repository
+```bash 
+git clone <your-repository-link>
+cd personal-ai-study-assistant
+
 ### 2. Install the dependencies 
 ### 3. Install Ollama and pull model (llama3.1:8b)
 ### 4. Add study material inside data/documents (.txt and .pdf files supported)
