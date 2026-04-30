@@ -78,6 +78,7 @@ uvicorn app:app --reload
 ```
 ### 7. Open in browser and test out queries based on the uploaded documents 
 
+---
 
 ## Future improvement updates:
 
