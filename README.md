@@ -2,6 +2,8 @@
 
 A local AI-powered study assistant that allows students to ask questions about their lecture notes, generate summaries, create quiz questions, and prepare for exams.
 
+---
+
 ## Features
 
 - Ask questions about lecture notes (RAG)
@@ -13,6 +15,8 @@ A local AI-powered study assistant that allows students to ask questions about t
 - Vector search using FAISS
 - Agent-based routing with LangGraph
 - FastAPI backend
+
+---
 
 ## How It Works
 
@@ -37,7 +41,9 @@ A local AI-powered study assistant that allows students to ask questions about t
 - Sentence Transformers
 - FastAPI
 
-## Setup and Run
+---
+
+## Setup Instructions
 
 ### 1. Clone the repository
 ```bash 
@@ -53,7 +59,6 @@ pip install -r requirements.txt
 ### 3. Install Ollama and pull model 
 ```
 https://ollama.com/
-
 ```
 #### run:
 ```bash
