@@ -1,6 +1,7 @@
 from typing import TypedDict, Literal
 from langgraph.graph import StateGraph, END
 from langchain_community.llms import Ollama
+from rag_tool import rag_answer
 
 #defining graph state
 class AgentState(TypedDict):
@@ -16,53 +17,23 @@ def calculator(expression: str) -> str:
         return str(eval(expression))
     except Exception as e:
         return f"Calculation error: {e}"
-    
-def doc_search(question: str) -> str:
-    knowledge = {
-        "machine learning": "Machine learning allows computers to learn patterns from data.",
-        "gradient descent": "Gradient descent is an optimization algorithm used to train machine learning models.",
-        "transformers": "Transformers are neural network architectures used in NLP and LLMs.",
-        "neural networks": "Neural networks are models inspired by the human brain."
-    }
-
-    question = question.lower()
-
-    for key, value in knowledge.items():
-        if key in question:
-            return value
-        
-    return "I could not find relevant information..."
 
 #router node 
 def router_node(state: AgentState) -> AgentState:
-    question = state["question"]
+    question = state["question"].lower()
 
-    prompt = f"""
-Decide which route should handle this query.
+    math_symbols = ["+", "-", "*", "/", "calculate"]
 
-Routes:
-calculator (for math problems)
-doc_search (for user questions regarding AI, ML, neural networks, transformers, gradient descent)
-general (for a conversation)
+    greetings = ["hello", "hi", "hey", "what can you do"]
 
-Return ONLY one word:
-calculator
-doc_search
-general
-
-Question: {question}
-    """
-
-    route = llm.invoke(prompt).strip().lower()
-
-    if "calculator" in route:
+    if any(symbol in question for symbol in math_symbols):
         route = "calculator"
-    elif "document" in route:
-        route = "doc_search"
-    else:
+    elif any(greeting in question for greeting in greetings):
         route = "general"
+    else:
+        route = "document"
 
-    return {"route" : route}
+    return {"route": route}
 
 #route decision function
 def route_decision(state: AgentState) -> Literal["calculator", "document", "general"]:
@@ -79,7 +50,7 @@ def calculator_node(state: AgentState) -> AgentState:
 
 #document node 
 def document_node(state: AgentState) -> AgentState:
-    result = doc_search(state["question"])
+    result = rag_answer(state["question"])
     return {"result": result}
 
 #general node 
@@ -88,6 +59,9 @@ def general_node(state: AgentState) -> AgentState:
 
 #final answer node
 def final_node(state: AgentState) -> AgentState:
+    if state["route"] == "document":
+        return {"answer": state["result"]}
+
     prompt = f"""
 Question: {state["question"]}
 Result: {state["result"]}
@@ -124,41 +98,3 @@ graph.add_edge("general", "final_node")
 graph.add_edge("final_node", END)
 
 app = graph.compile()
-
-#test
-questions = [
-    "What is gradient descent?",
-    "What is 12 * 8 + 4?",
-    "Hello, what can you do?"
-]
-
-for q in questions:
-    result = app.invoke({
-        "question": q,
-        "route": "",
-        "result": "",
-        "answer": ""
-    })
-
-    print("\nQuestion:", q)
-    print("Route:", result["route"])
-    print("Result:", result["result"])
-    print("Answer:", result["answer"])
-
-
-
-
-
-
-
-
-
-
-
-"""
-Problems:
-- The LLM is not correctly identifying the prompt as general, calculator or document searching
-
-Fix:
-- Update router_node (to be done later)
-"""
