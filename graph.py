@@ -14,7 +14,7 @@ llm = Ollama(model="llama3.1:8b")
 
 def calculator(expression: str) -> str:
     try:
-        return str(eval(expression))
+        return str(eval(expression)) #NOTE TO SELF: eval() is used just as simple calculator prototype, NOT TO USE FOR REAL USER INPUT
     except Exception as e:
         return f"Calculation error: {e}"
 

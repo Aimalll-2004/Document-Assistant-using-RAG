@@ -11,4 +11,7 @@ rag.py
 semantic_search.py
 simple_rag.py
 test_graph.py
-test_llm.py
+test_llm.py     
+
+# evaluation code (it is just for self evaulation of the model)
+evaluate.py
